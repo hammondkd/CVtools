@@ -1,5 +1,6 @@
 import datetime
 import sys
+import traceback
 from .utilities import list2string, datestring2monthyear, markup_authors
 from .degree import DOCTORATES, MASTERS
 from . import constants
