@@ -37,7 +37,11 @@ class Grant (Recent) : # {{{1
                 self.CPU_hours = args['CPU_hours']
                 self.amount = 0
             except KeyError :
-                raise
+                try :
+                    self.node_hours = args['node_hours']
+                    self.amount = 0
+                except KeyError :
+                    raise
         # Defaults
         self.awarded = False
         self.rejected = False
@@ -61,6 +65,7 @@ class Grant (Recent) : # {{{1
         self.internal = False
         self.description = None
         self.CPU_hours = None
+        self.node_hours = None
         for (arg,value) in args.items() :
             if hasattr(self,arg) :
                 setattr(self,arg,value)
@@ -133,6 +138,9 @@ class Grant (Recent) : # {{{1
         if self.CPU_hours is not None :
             print ('${}+{}$' + format(int(str(self.CPU_hours).replace(',','')),
                 ',d'), 'CPU-hours', end = '', file = texfile)
+        if self.node_hours is not None :
+            print ('${}+{}$' + format(int(str(self.node_hours).replace(',','')),
+                ',d'), 'node-hours', end = '', file = texfile)
         if self.total_amount is not None :
             print (r'; Total Amount: \$',
                 format(int(str(self.total_amount).replace(',','')), ',d'),
