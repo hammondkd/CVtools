@@ -40,7 +40,7 @@ from .recent import *
 from .professor import Professor
 from .degree import Degree
 from .job import Job
-from .award import Award
+from .award import Award, ServiceAward, TeachingAward, ResearchAward
 from .news import NewsCoverage
 from .grant import Grant
 

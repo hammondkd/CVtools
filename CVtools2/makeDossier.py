@@ -2,6 +2,7 @@ import datetime
 import re
 import os
 import sys
+from .award import ResearchAward, ServiceAward, TeachingAward
 from .course import UndergraduateCourse, GraduateCourse, \
     TeachingAssistantship, courses_from_this_school
 from .employee import VisitingProfessor, Postdoc, DoctoralStudent, \
@@ -59,16 +60,16 @@ def write_Dossier (data, filename, bibliography = None, typeface = None,
                     elif level is Postdoc :
                         print (heading, '{', prefix, 'Post-Doctoral Scholars}',
                             sep='', file = texfile)
-                    elif level is DoctoralStudent : 
+                    elif level is DoctoralStudent :
                         print (heading, '{', prefix, 'Doctoral Students}',
                             sep='', file = texfile)
-                    elif level is MastersStudent : 
+                    elif level is MastersStudent :
                         print (heading, '{', prefix, "Master's Students}",
                             sep='', file = texfile)
-                    elif level is UndergraduateStudent : 
+                    elif level is UndergraduateStudent :
                         print (heading, '{', prefix, 'Undergraduate Students}',
                             sep='', file = texfile)
-                    elif level is GraduateCommittee : 
+                    elif level is GraduateCommittee :
                         print (heading, '{', prefix,
                             'Thesis/Dissertation Committee Memberships}',
                             sep='', file = texfile)
@@ -102,7 +103,7 @@ def write_Dossier (data, filename, bibliography = None, typeface = None,
                 raise ValueError
             print (r'\begin{CVitemize}', file = texfile)
             for award in reversed(data.award) :
-                if award.teaching :
+                if isinstance(award, TeachingAward) :
                     award.write (texfile)
             print (r'\end{CVitemize}', file = texfile)
 
@@ -1457,7 +1458,7 @@ def write_Dossier (data, filename, bibliography = None, typeface = None,
         print (r'\subsection{Research Awards and Honors}', file = texfile)
         print (r'\begin{CVitemize}', file = texfile)
         for award in reversed(data.award) :
-            if not award.teaching and award.student is None :
+            if isinstance(award, ResearchAward) and award.student is None :
                 award.write (texfile)
         print (r'\end{CVitemize}', file = texfile)
 
@@ -2881,6 +2882,14 @@ def write_Dossier (data, filename, bibliography = None, typeface = None,
 
     ## Tab VIII: SERVICE {{{2
         print (r'\chapter{Service}', file = texfile)
+        # Service awards {{{3
+        if any (isinstance(x, ServiceAward) for x in data.award) :
+            print (r'\section{Service Awards}', file=texfile)
+            print (r'\begin{CVitemize}', file=texfile)
+            for award in reversed(data.award) :
+                if isinstance(award, ServiceAward) :
+                    service.write(texfile)
+            print (r'\end{CVitemize}', file=texfile)
         # Department service {{{3
         if any (isinstance(x, DepartmentService) for x in data.service) :
             print (r'\section{Department Service}', file = texfile)

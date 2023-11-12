@@ -9,6 +9,7 @@ from .employee import GraduateCommittee, VisitingProfessor, MastersStudent, \
     DoctoralStudent, GraduateStudent
 from .presentation import InvitedTalk, Interview, Poster
 from .service import NonLocalService, LocalService
+from .award import TeachingAward, ResearchAward, ServiceAward
 
 def write_CV (data, filename, bibliography = None, typeface = None,
     show_research_interests = True, show_posters = True,
@@ -104,11 +105,12 @@ def write_CV (data, filename, bibliography = None, typeface = None,
     # Teaching {{{2
     print (r'\section{Teaching}', file = texfile)
     # Teaching awards {{{3
-    if sum([x.teaching for x in data.award]) > 0 :
+    if sum([isinstance(x,TeachingAward) \
+            and x.student is None for x in data.award]) > 0 :
         print (r'\subsection{Teaching Awards and Honors}', file = texfile)
         print (r'\begin{CVitemize}', file = texfile)
         for award in reversed(data.award) :
-            if award.teaching :
+            if isinstance(award, TeachingAward) and award.student is None :
                 award.write (texfile)
         print (r'\end{CVitemize}', file = texfile)
     # Courses {{{3
@@ -190,11 +192,12 @@ def write_CV (data, filename, bibliography = None, typeface = None,
     # Research {{{2
     print (r'\section{Research}', file = texfile)
     # Research awards {{{3
-    if sum([(not x.teaching and x.student is None) for x in data.award]) > 0 :
+    if sum([(isinstance(x,ResearchAward) \
+            and x.student is None) for x in data.award]) > 0 :
         print (r'\subsection{Research Awards}', file = texfile)
         print (r'\begin{CVitemize}', file = texfile)
         for award in reversed(data.award) :
-            if not award.teaching and award.student is None :
+            if isinstance(award, ResearchAward) and award.student is None :
                 award.write (texfile)
         print (r'\end{CVitemize}', file = texfile)
 
@@ -333,6 +336,15 @@ def write_CV (data, filename, bibliography = None, typeface = None,
 
     # Service {{{2
     print (r'\section{Service Activities}', file = texfile)
+    # Service awards
+    if sum([isinstance(x,ServiceAward) \
+            and x.student is None for x in data.award]) > 0 :
+        print (r'\subsection{Service Awards and Honors}', file = texfile)
+        print (r'\begin{CVitemize}', file = texfile)
+        for award in reversed(data.award) :
+            if isinstance(award, ServiceAward) : #and award.student is None : FIXME
+                award.write (texfile)
+        print (r'\end{CVitemize}', file = texfile)
     # Student engagement {{{3
     print (r'\subsection{Student Engagement}', file = texfile)
     if len(data.student_engagement) > 0 :

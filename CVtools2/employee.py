@@ -498,8 +498,14 @@ class DoctoralStudent (GraduateStudent) : # {{{1
                 ('present' if self.end_date is None \
                            else datestring2monthyear(self.end_date))
         else :
-            return self.degree + ', ' + self.major.lower() + ', ' \
-                + self.school + ', ' + datestring2monthyear(self.graduation)
+            if self.graduation is None :
+                return "doctoral student, " + self.major.lower() + ', ' \
+                    + datestring2monthyear(self.start_date) + ' to ' \
+                    + datestring2monthyear(self.end_date)
+            else :
+                return self.degree + ', ' + self.major.lower() \
+                    + ', ' + self.school + ', ' \
+                    + datestring2monthyear(self.graduation)
 
 ##############################################################################
 

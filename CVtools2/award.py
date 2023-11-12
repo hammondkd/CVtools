@@ -49,3 +49,17 @@ class Award (Recent) : # {{{1
                 print ('    ', str(self.date), str(self.year) + r'.\relax',
                     file = texfile)
         self.end_recent(texfile)
+
+##############################################################################
+
+class ResearchAward (Award) :
+    'An award for research-related activities.'
+    pass
+
+class TeachingAward (Award) :
+    'An award for teaching-related activities.'
+    pass
+
+class ServiceAward (Award) :
+    'An award for service-related activities.'
+    pass
