@@ -486,7 +486,8 @@ class DoctoralStudent (GraduateStudent) : # {{{1
             print ("WARNING: Doctoral student's degree, ",
                 self.degree, ", is not a recognized doctorate.",
                 sep = '', file = sys.stderr)
-        if 'salutation' not in args and not self.current :
+        if 'salutation' not in args and not self.current \
+                and self.graduation is not None :
             self.salutation = r'Dr.~\relax'
 
 ##############################################################################
