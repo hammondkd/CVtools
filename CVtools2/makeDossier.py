@@ -2888,7 +2888,7 @@ def write_Dossier (data, filename, bibliography = None, typeface = None,
             print (r'\begin{CVitemize}', file=texfile)
             for award in reversed(data.award) :
                 if isinstance(award, ServiceAward) :
-                    service.write(texfile)
+                    award.write(texfile)
             print (r'\end{CVitemize}', file=texfile)
         # Department service {{{3
         if any (isinstance(x, DepartmentService) for x in data.service) :
