@@ -57,7 +57,7 @@ def set_typeface (outfile, typeface) : # {{{1
         typefacepackage = r'\usepackage{txfonts,newtxtextgreek}'
     elif re.search('([Pp]alladio|[Pp]alatino)', typeface) :
         typefacepackage = r'\usepackage{pxfonts,newtxtextgreek}'
-    elif re.search('([Bb]itstream|[Cc]harter|[Bb]itstream\s*[Cc]harter)',
+    elif re.search(r'([Bb]itstream|[Cc]harter|[Bb]itstream\s*[Cc]harter)',
             typeface) :
         typefacepackage = r'''\usepackage[charter]{mathdesign}
 \usepackage{newtxtextgreek}

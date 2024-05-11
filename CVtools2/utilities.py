@@ -277,7 +277,7 @@ def markup_authors (authors, # {{{1
         # END
         if initials :
             # Abbreviate author names (e.g., Karl -> K.; Karl D. -> K.~D.)
-            names = authors.replace(tie,' ').replace('\.',' ').split()
+            names = authors.replace(tie,' ').replace(r'\.',' ').split()
             for i in range(len(names)-1) :
                 if ( names[i] == '' ) :
                     continue

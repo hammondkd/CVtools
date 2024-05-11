@@ -235,7 +235,7 @@ def write_old_Biosketch (data, filename, bibliography = None, # {{{1
             data.collaborator)
         collab = list(collab)
         print (r'\par\textbf{Collaborators (' +
-            str(len(collab)) + ')}\quad', file = texfile)
+            str(len(collab)) + r')}\quad', file = texfile)
         if len(collab) > 0 :
             collab = sorted(collab, key=lambda c: c.last)
             for i in range(len(collab)-1) :
@@ -263,10 +263,10 @@ def write_old_Biosketch (data, filename, bibliography = None, # {{{1
             line = ''
             if isinstance(degree.advisor, str) or len(degree.advisor) == 1 :
                 line += r'\par\vspace{1.0ex}\textbf{Doctorate' \
-                    ' Advisor (1)}\quad '
+                    r' Advisor (1)}\quad '
             else :
                 line += r'\par\vspace{1.0ex}\textbf{Doctorate' \
-                    ' Advisors (' + str(len(degree.advisor)) + ')}\quad '
+                    ' Advisors (' + str(len(degree.advisor)) + r')}\quad '
             if isinstance(degree.advisor, (list,tuple)) :
                 arr = []
                 for i in range(len(degree.advisor)) :
@@ -306,7 +306,7 @@ def write_old_Biosketch (data, filename, bibliography = None, # {{{1
             if isinstance(student, GraduateStudent) and not student.current :
                 nformerstudents += 1
         print (r'\vspace{1.0ex}\par\vspace{1.0ex}\textbf{Graduate ',
-            'Students Advised (', nformerstudents, ')}\quad',
+            'Students Advised (', nformerstudents, r')}\quad',
             sep = '', file = texfile)
         if nformerstudents > 0 :
             nstudent = 0
@@ -332,7 +332,7 @@ def write_old_Biosketch (data, filename, bibliography = None, # {{{1
             if isinstance (minion, Postdoc) :
                 npostdocs += 1
         print (r'\par\textbf{Postdoctoral Scholars Sponsored ('
-            + str(npostdocs) + ')}\quad', file = texfile)
+            + str(npostdocs) + r')}\quad', file = texfile)
         if npostdocs > 0 :
             nstudent = 0
             for student in data.employee :

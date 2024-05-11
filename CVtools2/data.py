@@ -602,7 +602,7 @@ src="app.id=PartnerApp,env.id=PartnerAppEnv,partner.email=EmailAddress">
                 files = bibliography.split(',')
                 parser = biblib.bib.Parser()
                 for f in files :
-                    f = re.sub('[^-\.\+a-zA-Z0-9_]+','',f)
+                    f = re.sub(r'[^-\.\+a-zA-Z0-9_]+','',f)
                     f = f.rstrip().rstrip('.bib') + '.bib'
                     proc = subprocess.run(['kpsewhich',f],
                         stdout=subprocess.PIPE)

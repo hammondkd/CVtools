@@ -271,7 +271,7 @@ class Publication (Recent) : # {{{1
             try :
                 query_string = re.sub(r'\\[a-zA-Z]+{([^}]+)}', r'\1',
                     self.title)
-                query_string = re.sub('\$', '', query_string)
+                query_string = re.sub(r'\$', '', query_string)
             except TypeError :
                 print ("WARNING: unable to update Google Scholar citations",
                     "for key", self.key, file = sys.stderr)
@@ -282,7 +282,7 @@ class Publication (Recent) : # {{{1
             try :
                 query_string = re.sub(r'\\[a-zA-Z]+{([^}]+)}', r'\1',
                     self.booktitle)
-                query_string = re.sub('\$', '', query_string)
+                query_string = re.sub(r'\$', '', query_string)
             except TypeError :
                 print ("WARNING: unable to update Google Scholar citations",
                     "for key", self.key, file = sys.stderr)
@@ -415,13 +415,13 @@ class Publication (Recent) : # {{{1
         if self.doi is None :
             self.ncites_MSacad = 0
         else :
-            p1 = subprocess.Popen ('wget -q -O - "http://academic.research.microsoft.com/Search?query=doi(' + self.doi + ')"',
+            p1 = subprocess.Popen (r'wget -q -O - "http://academic.research.microsoft.com/Search?query=doi(' + self.doi + ')"',
                 shell=True, stdout=subprocess.PIPE)
             p2 = subprocess.Popen ('fgrep -i Citations', shell=True,
                 stdin=p1.stdout, stdout=subprocess.PIPE)
             output = str(p2.communicate()[0])
-            output = re.sub('.*>Citations:\s*', '', output)
-            output = re.sub('</a>.*', '', output)
+            output = re.sub(r'.*>Citations:\s*', '', output)
+            output = re.sub(r'</a>.*', '', output)
             try :
                 self.ncites_MSacad = int(output)
             except ValueError :
