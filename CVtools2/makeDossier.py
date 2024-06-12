@@ -27,6 +27,8 @@ def write_Dossier (data, filename, bibliography = None, typeface = None,
        previous students, shows interviews (as invited talks), publications,
        and presentations.'''
 
+    constants.IDENTIFY_MINIONS = True
+
     if not isinstance(numbers, bool) :
         raise TypeError('numbers must be True or False')
     if not isinstance(show_interviews, bool) :
