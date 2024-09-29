@@ -92,7 +92,8 @@ def write_CV (data, filename, bibliography = None, typeface = None,
     for course in data.course :
         if course.responses is not None :
             nresponses += course.responses
-            mean += course.responses * course.composite_score
+            if course.composite_score is not None :
+                mean += course.responses * course.composite_score
     try :
         mean = mean / nresponses
     except ZeroDivisionError :

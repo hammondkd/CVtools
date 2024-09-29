@@ -772,7 +772,7 @@ def write_Dossier (data, filename, bibliography = None, typeface = None,
             print (' ', row.semester[0] + str(row.year), '&', row.number, '&',
                 row.credits, '&', str(row.students) + '/' + str(row.responses),
                 '&', ('%0.03f' %  mean_GPA), '&',
-                ('%0.02f' % row.composite_score), '&',
+                '' if row.composite_score is None else ('%0.02f' % row.composite_score), '&',
                 mean_composite, r'\\',
                 file = texfile)
         print (r'  \hline', file = texfile)
@@ -1203,14 +1203,23 @@ def write_Dossier (data, filename, bibliography = None, typeface = None,
             nstudents += course.students
         if course.responses is not None :
             nresponses += course.responses
-            means['content'] += course.responses * course.content_score
-            means['delivery'] += course.responses * course.delivery_score
-            means['environment'] += course.responses * course.environment_score
-            means['assessment'] += course.responses * course.assessment_score
-            means['effectiveness'] += course.responses * course.effectiveness_score
-            means['composite'] += course.responses * course.composite_score
-            means['composite_AB'] += course.responses * course.composite_AB_score
-            means['mean_GPA'] += course.responses * course.mean_GPA
+            if course.content_score is not None :
+                means['content'] += course.responses * course.content_score
+            if course.delivery_score is not None :
+                means['delivery'] += course.responses * course.delivery_score
+            if course.environment_score is not None :
+                means['environment'] += \
+                    course.responses * course.environment_score
+            if course.assessment_score is not None :
+                means['assessment'] += course.responses * course.assessment_score
+            if course.effectiveness_score is not None :
+                means['effectiveness'] += course.responses * course.effectiveness_score
+            if course.composite_score is not None :
+                means['composite'] += course.responses * course.composite_score
+            if course.composite_AB_score is not None :
+                means['composite_AB'] += course.responses * course.composite_AB_score
+            if course.mean_GPA is not None :
+                means['mean_GPA'] += course.responses * course.mean_GPA
     for i in means :
         try :
             means[i] = means[i] / nresponses
