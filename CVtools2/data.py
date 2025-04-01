@@ -258,6 +258,8 @@ class CV_data : # {{{1
 
 ##############################################################################
 
+    # TODO This needs to be updated to use the Web of Science Starter API,
+    # as Links AMR has been sunset since November 1, 2023 and is not available.
     def update_WoS (self) : # {{{2
 
         '''Updates the times a paper has been cited, according to Web of
@@ -346,6 +348,7 @@ src="app.id=PartnerApp,env.id=PartnerAppEnv,partner.email=EmailAddress">
                     data = request)
                 xml = citedata.text
                 field = str(xml).split('\n')
+                print (str(xml))
                 indices = {}
                 url = {}
                 for i in range(len(field)) :
